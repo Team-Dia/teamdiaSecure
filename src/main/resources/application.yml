@@ -1,0 +1,51 @@
+server:
+  servlet:
+    session:
+      timeout: 30m
+  port: 8070
+  tomcat:
+    max-http-form-post-size: 100MB  # Tomcat에서 처리하는 POST 요청 최대 크기 (multipart 포함)
+    max-swallow-size: -1          # Tomcat이 처리할 수 있는 요청 본문 크기 (무제한)
+    max-http-header-size: 64KB     # 요청 헤더 최대 크기
+
+spring:
+  application:
+    name: SPServer
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/teamdia
+    username: root
+    password: adminuser
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        format_sql: true
+    show-sql: true
+  servlet:  # multipart 설정 추가
+    multipart:
+      max-file-size: 50MB    # 단일 파일 최대 크기
+      max-request-size: 100MB  # 전체 요청 최대 크기
+      enabled: true           # multipart 처리 활성화 (기본값: true)
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: hamhsik1222@gmail.com
+    password: pptn agpr ysjy lspn # 실제 비밀번호는 이렇게 노출하면 안됩니다! 환경 변수 사용 권장
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+          timeout: 5000
+
+kakao:
+  client_id: 6ee1731553a983102257108c54fe99bc
+  redirect_uri: http://localhost:3000/login
+
+file:
+  upload:
+    dir: classpath:static/product_images/  # 파일 업로드 디렉터리
+    customer_dir: uploads/customer_images/         # 🔹 고객 업로드 이미지 저장 위치 추가
